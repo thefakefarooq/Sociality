@@ -1,0 +1,20 @@
+body {
+    background-color: #242424 !important;
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+h5 {
+    font-size: 1.1em;
+}
+
+.centerButton {
+    align-content: center;
+}
+
+.spacePadding {
+    padding: '0em 2em';
+}

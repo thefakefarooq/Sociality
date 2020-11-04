@@ -17,6 +17,7 @@ export default function MenuBar() {
                     onClick={handleItemClick}
                     as={Link}
                     to="/"
+                    style={{ marginLeft: '2em' }}
                 >
                     <Icon name="staylinked" size="large" />
                 </Menu.Item>
@@ -32,6 +33,7 @@ export default function MenuBar() {
                         >
                             LOGIN
                         </Button>
+
                         <Button
                             as={Link}
                             to="/register"
