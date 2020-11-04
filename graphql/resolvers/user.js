@@ -38,7 +38,7 @@ module.exports = {
 
             const match = await bcrypt.compare(password, User.password)
             if (!match) {
-                errors.general = 'Wrong Credentials'
+                errors.password = 'Wrong Credentials'
                 throw new UserInputError('Wrong Credentials', { errors })
             }
 

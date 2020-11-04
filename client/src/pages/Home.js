@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { Container, Grid, Image } from 'semantic-ui-react'
+import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 
 import PostCard from '../components/PostCard'
@@ -19,10 +19,9 @@ DARK MODE !
 */
 
 function Home() {
-    const {
-        loading,
-        data: { getPosts: posts },
-    } = useQuery(FETCH_POSTS_QUERY)
+    const { loading, data: { getPosts: posts } = {} } = useQuery(
+        FETCH_POSTS_QUERY
+    )
 
     return (
         <Container>
@@ -33,7 +32,9 @@ function Home() {
                 </Grid.Row>
                 <Grid.Row></Grid.Row>
                 {loading ? (
-                    <h1>Loading Posts..</h1>
+                    <Dimmer active>
+                        <Loader size="massive">Loading</Loader>
+                    </Dimmer>
                 ) : (
                     posts &&
                     posts.map((post) => (
