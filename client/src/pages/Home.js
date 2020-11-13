@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
+import {
+    Dimmer,
+    Icon,
+    Header,
+    Grid,
+    Loader,
+    Button,
+    Segment,
+    Container,
+    GridColumn,
+} from 'semantic-ui-react'
 import gql from 'graphql-tag'
 
+import { AuthContext } from '../context/AuthContext'
 import PostCard from '../components/PostCard'
 
 /* 
@@ -19,17 +30,28 @@ DARK MODE !
 */
 
 function Home() {
+    const [dimming, setDimming] = useState(false)
+
+    const { user } = useContext(AuthContext)
     const { loading, data: { getPosts: posts } = {} } = useQuery(
         FETCH_POSTS_QUERY
     )
 
+    const contentHide = () => {
+        setDimming(true)
+        console.log('Hiding ', dimming)
+    }
+    const contentShow = () => {
+        setDimming(false)
+        console.log('Showing ', dimming)
+    }
+
     return (
-        <Container>
+        <Dimmer.Dimmable dimmed={dimming}>
             <Grid centered className="loading">
-                <Grid.Row></Grid.Row>
-                <Grid.Row>
+                <div class="centerHeading">
                     <h1>Recent Posts</h1>
-                </Grid.Row>
+                </div>
                 <Grid.Row></Grid.Row>
                 {loading ? (
                     <Dimmer active>
@@ -38,15 +60,35 @@ function Home() {
                 ) : (
                     posts &&
                     posts.map((post) => (
-                        <Grid.Row centered columns={4}>
+                        <div class="centerCards">
                             <Grid.Column key={post.id}>
                                 <PostCard post={post} />
                             </Grid.Column>
-                        </Grid.Row>
+                        </div>
                     ))
                 )}
+
+                <div
+                    class="item"
+                    style={{ width: '-moz-available', justifyContent: 'right' }}
+                >
+                    <Button
+                        circular
+                        size="massive"
+                        icon="settings"
+                        onClick={contentHide}
+                        floated="right"
+                        style={{ fontSize: '3em' }}
+                    />
+                </div>
             </Grid>
-        </Container>
+            <Dimmer active={dimming} onClickOutside={contentShow}>
+                <Header as="h2" icon inverted>
+                    <Icon name="heart" />
+                    Dimmed Message!
+                </Header>
+            </Dimmer>
+        </Dimmer.Dimmable>
     )
 }
 const FETCH_POSTS_QUERY = gql`

@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form, Segment, Button, Icon, Container } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 
+import { AuthContext } from '../context/AuthContext'
 import { useForm } from '../util/hooks'
 
 export default function Register(props) {
+    const context = useContext(AuthContext)
     const [errors, setErrors] = useState({})
 
     const REGISTER_USER = gql`
@@ -40,7 +42,8 @@ export default function Register(props) {
     })
 
     const [addUser] = useMutation(REGISTER_USER, {
-        update(_, result) {
+        update(_, { data: { register: userData } }) {
+            context.login(userData)
             props.history.push('/')
         },
         onError(err) {
@@ -157,7 +160,6 @@ export default function Register(props) {
                             animated
                             inverted
                             size="big"
-                            floated="center"
                         >
                             <Button.Content visible>LET'S GO</Button.Content>
                             <Button.Content hidden>

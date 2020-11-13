@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     Form,
     Segment,
@@ -10,9 +10,11 @@ import {
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/client'
 
+import { AuthContext } from '../context/AuthContext'
 import { useForm } from '../util/hooks'
 
 export default function Login(props) {
+    const context = useContext(AuthContext)
     const [errors, setErrors] = useState({})
 
     const LOGIN_USER = gql`
@@ -32,8 +34,9 @@ export default function Login(props) {
         password: '',
     })
 
-    const [loginUser] = useMutation(LOGIN_USER, {
-        update(_, result) {
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+        update(_, { data: { login: userData } }) {
+            context.login(userData)
             props.history.push('/')
         },
         onError(err) {
@@ -119,7 +122,7 @@ export default function Login(props) {
                         </Form.Field>
                     </Form.Group>
                     {Object.keys(general).length > 0 && (
-                        <div class="centerRegion">
+                        <div className="centerRegion">
                             <ul className="list">
                                 <Message
                                     compact
@@ -130,7 +133,7 @@ export default function Login(props) {
                             </ul>
                         </div>
                     )}
-                    <Container textAlign="center">
+                    <Container textAlign="center" style={{ marginTop: 30 }}>
                         <Button
                             style={{ marginTop: '1em' }}
                             circular
