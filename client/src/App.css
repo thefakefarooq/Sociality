@@ -34,3 +34,31 @@ h5 {
     padding: 3em;
     margin-right: 2em;
 }
+
+.FormBox {
+    width: -moz-available;
+    display: flex;
+    justify-content: center;
+    padding-top: 12em;
+}
+
+.LoginForm {
+    width: auto;
+    padding: 1em 2em;
+    padding-bottom: 2em;
+}
+
+.FormHeading {
+    text-align: center;
+    padding: 1em 1em;
+    padding-bottom: 2em;
+}
+
+.LoginFields {
+    width: auto;
+    padding: 1em;
+}
+
+.HomePage {
+    height: 100vh;
+}

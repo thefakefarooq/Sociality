@@ -4,10 +4,11 @@ import moment from 'moment'
 import { Link } from 'react-router-dom'
 
 export default function PostCard({
-    post: { body, createdAt, id, username, likeCount, commentCount, likes },
+    post: { body, createdAt, id, username, likeCount, commentCount, comments },
 }) {
+    if (comments[0]) console.log(comments[0].username)
     return (
-        <Card color="grey">
+        <Card color="grey" id={id}>
             <Card.Content>
                 <Feed size="large">
                     <Feed.Event>
@@ -47,7 +48,11 @@ export default function PostCard({
                 </Feed>
             </Card.Content>
             <Card.Content extra style={{ marginTop: -11 }}>
-                <h4>{username}</h4>
+                <h4>
+                    {comments[0]
+                        ? comments[0].username + ' : ' + comments[0].body
+                        : ''}
+                </h4>
             </Card.Content>
         </Card>
     )

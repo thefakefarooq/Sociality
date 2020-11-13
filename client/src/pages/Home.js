@@ -47,48 +47,53 @@ function Home() {
     }
 
     return (
-        <Dimmer.Dimmable dimmed={dimming}>
-            <Grid centered className="loading">
-                <div class="centerHeading">
-                    <h1>Recent Posts</h1>
-                </div>
-                <Grid.Row></Grid.Row>
-                {loading ? (
-                    <Dimmer active>
-                        <Loader size="massive">Loading</Loader>
-                    </Dimmer>
-                ) : (
-                    posts &&
-                    posts.map((post) => (
-                        <div class="centerCards">
-                            <Grid.Column key={post.id}>
-                                <PostCard post={post} />
-                            </Grid.Column>
-                        </div>
-                    ))
-                )}
+        <div class="HomePage">
+            <Dimmer.Dimmable dimmed={dimming} style={{ height: '100vh' }}>
+                <Grid centered className="loading">
+                    <div class="centerHeading">
+                        <h1>Recent Posts</h1>
+                    </div>
+                    <Grid.Row></Grid.Row>
+                    {loading ? (
+                        <Dimmer active>
+                            <Loader size="massive">Loading</Loader>
+                        </Dimmer>
+                    ) : (
+                        posts &&
+                        posts.map((post) => (
+                            <div class="centerCards">
+                                <Grid.Column key={post.id}>
+                                    <PostCard post={post} />
+                                </Grid.Column>
+                            </div>
+                        ))
+                    )}
 
-                <div
-                    class="item"
-                    style={{ width: '-moz-available', justifyContent: 'right' }}
-                >
-                    <Button
-                        circular
-                        size="massive"
-                        icon="settings"
-                        onClick={contentHide}
-                        floated="right"
-                        style={{ fontSize: '3em' }}
-                    />
-                </div>
-            </Grid>
-            <Dimmer active={dimming} onClickOutside={contentShow}>
-                <Header as="h2" icon inverted>
-                    <Icon name="heart" />
-                    Dimmed Message!
-                </Header>
-            </Dimmer>
-        </Dimmer.Dimmable>
+                    <div
+                        class="item"
+                        style={{
+                            width: '-moz-available',
+                            justifyContent: 'right',
+                        }}
+                    >
+                        <Button
+                            circular
+                            size="massive"
+                            icon="settings"
+                            onClick={contentHide}
+                            floated="right"
+                            style={{ fontSize: '3em' }}
+                        />
+                    </div>
+                </Grid>
+                <Dimmer active={dimming} onClickOutside={contentShow}>
+                    <Header as="h2" icon inverted>
+                        <Icon name="heart" />
+                        Dimmed Message!
+                    </Header>
+                </Dimmer>
+            </Dimmer.Dimmable>
+        </div>
     )
 }
 const FETCH_POSTS_QUERY = gql`
