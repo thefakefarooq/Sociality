@@ -33,6 +33,9 @@ h5 {
 .item {
     padding: 3em;
     margin-right: 2em;
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
 }
 
 .FormBox {

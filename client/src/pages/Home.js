@@ -7,9 +7,11 @@ import {
     Grid,
     Loader,
     Button,
+    Sticky,
     Segment,
     Container,
     GridColumn,
+    Form,
 } from 'semantic-ui-react'
 import gql from 'graphql-tag'
 
@@ -46,14 +48,13 @@ function Home() {
         console.log('Showing ', dimming)
     }
 
-    return (
+    const HomePage = user ? (
         <div class="HomePage">
             <Dimmer.Dimmable dimmed={dimming} style={{ height: '100vh' }}>
                 <Grid centered className="loading">
                     <div class="centerHeading">
                         <h1>Recent Posts</h1>
                     </div>
-                    <Grid.Row></Grid.Row>
                     {loading ? (
                         <Dimmer active>
                             <Loader size="massive">Loading</Loader>
@@ -69,17 +70,11 @@ function Home() {
                         ))
                     )}
 
-                    <div
-                        class="item"
-                        style={{
-                            width: '-moz-available',
-                            justifyContent: 'right',
-                        }}
-                    >
+                    <div class="item">
                         <Button
                             circular
                             size="massive"
-                            icon="settings"
+                            icon="pencil"
                             onClick={contentHide}
                             floated="right"
                             style={{ fontSize: '3em' }}
@@ -87,14 +82,27 @@ function Home() {
                     </div>
                 </Grid>
                 <Dimmer active={dimming} onClickOutside={contentShow}>
-                    <Header as="h2" icon inverted>
-                        <Icon name="heart" />
-                        Dimmed Message!
-                    </Header>
+                    <Form inverted>
+                        <div class="FormHeading">
+                            <h1>
+                                TALK TO THE <Icon name="globe" size="big" />
+                                {'  '}
+                            </h1>
+                        </div>
+                        <Form.Input size="large" placeholder="Write here.." />
+                    </Form>
                 </Dimmer>
             </Dimmer.Dimmable>
         </div>
+    ) : (
+        <div class="HomePage">
+            <div class="centerHeading">
+                <h1>Login First</h1>
+            </div>
+        </div>
     )
+
+    return HomePage
 }
 const FETCH_POSTS_QUERY = gql`
     {
