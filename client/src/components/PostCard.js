@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 export default function PostCard({
     post: { body, createdAt, id, username, likeCount, commentCount, comments },
 }) {
-    if (comments[0]) console.log(comments[0].username)
     return (
         <Card color="grey" id={id}>
             <Card.Content>

@@ -17,6 +17,7 @@ import gql from 'graphql-tag'
 
 import { AuthContext } from '../context/AuthContext'
 import PostCard from '../components/PostCard'
+import PostForm from '../components/PostForm'
 
 /* 
 DARK MODE !
@@ -41,11 +42,9 @@ function Home() {
 
     const contentHide = () => {
         setDimming(true)
-        console.log('Hiding ', dimming)
     }
     const contentShow = () => {
         setDimming(false)
-        console.log('Showing ', dimming)
     }
 
     const HomePage = user ? (
@@ -82,15 +81,7 @@ function Home() {
                     </div>
                 </Grid>
                 <Dimmer active={dimming} onClickOutside={contentShow}>
-                    <Form inverted>
-                        <div class="FormHeading">
-                            <h1>
-                                TALK TO THE <Icon name="globe" size="big" />
-                                {'  '}
-                            </h1>
-                        </div>
-                        <Form.Input size="large" placeholder="Write here.." />
-                    </Form>
+                    <PostForm />
                 </Dimmer>
             </Dimmer.Dimmable>
         </div>
