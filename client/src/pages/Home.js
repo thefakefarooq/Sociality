@@ -1,23 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import {
-    Dimmer,
-    Icon,
-    Header,
-    Grid,
-    Loader,
-    Button,
-    Sticky,
-    Segment,
-    Container,
-    GridColumn,
-    Form,
-} from 'semantic-ui-react'
-import gql from 'graphql-tag'
+import { Dimmer, Grid, Loader, Button } from 'semantic-ui-react'
 
 import { AuthContext } from '../context/AuthContext'
 import PostCard from '../components/PostCard'
 import PostForm from '../components/PostForm'
+import { FETCH_POSTS_QUERY } from '../util/getPosts'
 
 /* 
 DARK MODE !
@@ -95,28 +83,5 @@ function Home() {
 
     return HomePage
 }
-const FETCH_POSTS_QUERY = gql`
-    {
-        getPosts {
-            id
-            body
-            createdAt
-            username
-            likeCount
-            likes {
-                username
-            }
-            commentCount
-            comments {
-                username
-                createdAt
-                body
-                likeCount
-                likes {
-                    username
-                }
-            }
-        }
-    }
-`
+
 export default Home

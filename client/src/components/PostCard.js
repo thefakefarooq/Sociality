@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Feed, Icon, Card, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+
+import AuthContext from '../context/AuthContext'
 
 export default function PostCard({
     post: { body, createdAt, id, username, likeCount, commentCount, comments },
@@ -15,7 +17,7 @@ export default function PostCard({
                         <Feed.Content>
                             <Feed.Summary>
                                 <a>{username}</a> posted
-                                <Feed.Date>
+                                <Feed.Date as={Link} to={`posts/${id}`}>
                                     {moment(createdAt).fromNow()}
                                 </Feed.Date>
                             </Feed.Summary>

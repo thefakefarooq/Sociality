@@ -34,7 +34,7 @@ export default function Login(props) {
         password: '',
     })
 
-    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+    const [loginUser] = useMutation(LOGIN_USER, {
         update(_, { data: { login: userData } }) {
             context.login(userData)
             props.history.push('/')
