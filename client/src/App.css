@@ -11,6 +11,18 @@ h5 {
     font-size: 1.1em;
 }
 
+.likeCount {
+    font-size: 1.28571429rem;
+    margin-top: 4px;
+    margin-left: 6px;
+}
+
+.singlePost {
+    justify-content: center;
+    padding: 2em;
+    margin-top: 2em;
+}
+
 .centerHeading {
     text-align: center;
     padding: 2em;

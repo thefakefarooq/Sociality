@@ -25,20 +25,16 @@ export default function PostCard({
                                 {body}
                             </Feed.Extra>
                             <Feed.Meta>
-                                <Feed.Like
-                                    as={Link}
-                                    to="/login"
+                                <Button
                                     style={{
                                         marginRight: '2em',
                                     }}
+                                    labelPosition="right"
+                                    red
                                 >
-                                    <Icon
-                                        name="like"
-                                        style={{ marginRight: 2 }}
-                                    />
-                                    {'       '}
+                                    <Icon name="like" />
                                     {likeCount}
-                                </Feed.Like>
+                                </Button>
                                 <Button labelPosition="right" inverted>
                                     <Icon name="comments" />
                                     {commentCount}
@@ -48,12 +44,10 @@ export default function PostCard({
                     </Feed.Event>
                 </Feed>
             </Card.Content>
-            <Card.Content extra style={{ marginTop: -11 }}>
-                <h4>
-                    {comments[0]
-                        ? comments[0].username + ' : ' + comments[0].body
-                        : ''}
-                </h4>
+            <Card.Content extra style={{ marginTop: -11, textAlign: 'left' }}>
+                {comments[0]
+                    ? comments[0].username + ': ' + comments[0].body
+                    : ''}
             </Card.Content>
         </Card>
     )
