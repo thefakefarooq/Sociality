@@ -139,7 +139,7 @@ export default function SinglePost(props) {
                                     <Form reply>
                                         <TextArea
                                             rows={1}
-                                            style={{ maxHeight: 100 }}
+                                            style={{ maxHeight: 70 }}
                                             placeholder="Tell us more"
                                         />
                                         <Button
