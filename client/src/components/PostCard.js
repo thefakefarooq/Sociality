@@ -3,11 +3,23 @@ import { Feed, Icon, Card, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
-import AuthContext from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
+import LikeButton from './LikeButton'
 
 export default function PostCard({
-    post: { body, createdAt, id, username, likeCount, commentCount, comments },
+    post: {
+        body,
+        createdAt,
+        id,
+        username,
+        likeCount,
+        commentCount,
+        comments,
+        likes,
+    },
 }) {
+    const { user } = useContext(AuthContext)
+
     return (
         <Card color="grey" id={id}>
             <Card.Content>
@@ -25,16 +37,11 @@ export default function PostCard({
                                 {body}
                             </Feed.Extra>
                             <Feed.Meta>
-                                <Button
-                                    style={{
-                                        marginRight: '2em',
-                                    }}
-                                    labelPosition="right"
-                                    red
-                                >
-                                    <Icon name="like" />
-                                    {likeCount}
-                                </Button>
+                                <LikeButton
+                                    user={user}
+                                    post={{ id, likes, likeCount }}
+                                />
+
                                 <Button labelPosition="right" inverted>
                                     <Icon name="comments" />
                                     {commentCount}

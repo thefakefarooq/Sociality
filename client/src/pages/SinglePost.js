@@ -13,6 +13,7 @@ import {
     TextArea,
 } from 'semantic-ui-react'
 import moment from 'moment'
+import LikeButton from '../components/LikeButton'
 
 import { AuthContext } from '../context/AuthContext'
 
@@ -81,18 +82,12 @@ export default function SinglePost(props) {
                                 >
                                     {body}
                                     <br />
-                                    <Button
+                                    <LikeButton
+                                        user={user}
+                                        post={{ id, likes, likeCount }}
+                                        large="big"
                                         floated="right"
-                                        style={{
-                                            marginRight: '1.5em',
-                                            marginTop: '8px',
-                                        }}
-                                        labelPosition="right"
-                                        red
-                                    >
-                                        <Icon name="like" size="large" fitted />
-                                        <div class="likeCount">{likeCount}</div>
-                                    </Button>
+                                    />
                                 </Card.Description>
                             </Card.Content>
 
@@ -118,19 +113,15 @@ export default function SinglePost(props) {
                                                     </Comment.Text>
                                                     <Comment.Actions>
                                                         <Comment.Action>
-                                                            <Button
-                                                                style={{
-                                                                    marginLeft:
-                                                                        '0.25em',
+                                                            <LikeButton
+                                                                user={user}
+                                                                post={{
+                                                                    id,
+                                                                    likes,
+                                                                    likeCount,
                                                                 }}
-                                                                labelPosition="right"
-                                                                red
-                                                            >
-                                                                <Icon name="like" />
-                                                                {
-                                                                    comment.likeCount
-                                                                }
-                                                            </Button>
+                                                                floated="right"
+                                                            />
                                                         </Comment.Action>
                                                     </Comment.Actions>
                                                 </Comment.Content>
