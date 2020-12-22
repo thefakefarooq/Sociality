@@ -39,9 +39,7 @@ function Home() {
         <div class="HomePage">
             <Dimmer.Dimmable dimmed={dimming} style={{ height: '100vh' }}>
                 <Grid centered className="loading">
-                    <div class="centerHeading">
-                        <h1>Recent Posts</h1>
-                    </div>
+                    <div class="centerHeading"></div>
                     {loading ? (
                         <Dimmer active>
                             <Loader size="massive">Loading</Loader>

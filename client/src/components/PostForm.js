@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client'
 import { FETCH_POSTS_QUERY } from '../util/getPosts'
 
 export default function PostForm() {
+    const [errors, setErrors] = useState({})
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
         body: '',
     })
@@ -43,6 +44,9 @@ export default function PostForm() {
             proxy.writeQuery({ query: FETCH_POSTS_QUERY, data })
             values.body = ''
         },
+        onError(err) {
+            setErrors(err.graphQLErrors[0].extensions.exception.errors)
+        },
     })
 
     function createPostCallback() {
@@ -58,7 +62,7 @@ export default function PostForm() {
                 </h1>
             </div>
             <Form.Input
-                style={{ paddingTop: '0.8em', paddingBottom: '2em' }}
+                style={{ paddingTop: '0.8em' }}
                 size="large"
                 placeholder="Write here.."
                 name="body"
@@ -69,7 +73,7 @@ export default function PostForm() {
                 value={values.body}
             />
             <Button
-                style={{ marginTop: '1em' }}
+                style={{ marginTop: '2em' }}
                 circular
                 type="submit"
                 inverted

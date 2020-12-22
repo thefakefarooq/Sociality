@@ -59,6 +59,7 @@ export default function LikeButton({
                 labelPosition="right"
                 floated={floated}
                 size={large}
+                color="yellow"
                 inverted
                 active
                 onClick={likePost}
@@ -73,10 +74,13 @@ export default function LikeButton({
                 marginRight: '2em',
             }}
             labelPosition="right"
-            red
+            floated={floated}
+            size={large}
+            color="yellow"
+            inverted
+            active
             as={Link}
             to="/login"
-            basic
         >
             <Icon name="like" />
             {likeCount}

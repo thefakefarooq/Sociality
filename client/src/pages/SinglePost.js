@@ -14,6 +14,7 @@ import {
 } from 'semantic-ui-react'
 import moment from 'moment'
 import LikeButton from '../components/LikeButton'
+import DeleteButton from '../components/DeleteButton'
 
 import { AuthContext } from '../context/AuthContext'
 
@@ -65,6 +66,7 @@ export default function SinglePost(props) {
                             <Card.Content>
                                 <Card.Header style={{ color: 'white' }}>
                                     {username}
+                                    <DeleteButton postID={{ id }} />
                                 </Card.Header>
                                 <Card.Meta
                                     style={{
