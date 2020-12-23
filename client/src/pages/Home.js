@@ -22,24 +22,26 @@ DARK MODE !
 
 function Home() {
     const [dimming, setDimming] = useState(false)
-
+    const [errors, setErrors] = useState(false)
     const { user } = useContext(AuthContext)
     const { loading, data: { getPosts: posts } = {} } = useQuery(
         FETCH_POSTS_QUERY
     )
 
     const contentHide = () => {
-        setDimming(true)
-    }
-    const contentShow = () => {
         setDimming(false)
+        setErrors(false)
     }
 
+    const initError = () => {
+        setErrors(true)
+        console.log('hit')
+    }
     const HomePage = user ? (
-        <div class="HomePage">
+        <div className="HomePage">
             <Dimmer.Dimmable dimmed={dimming} style={{ height: '100vh' }}>
                 <Grid centered className="loading">
-                    <div class="centerHeading"></div>
+                    <div className="centerHeading"></div>
                     {loading ? (
                         <Dimmer active>
                             <Loader size="massive">Loading</Loader>
@@ -47,33 +49,37 @@ function Home() {
                     ) : (
                         posts &&
                         posts.map((post) => (
-                            <div class="centerCards">
-                                <Grid.Column key={post.id}>
-                                    <PostCard post={post} />
-                                </Grid.Column>
+                            <div key={post.id} className="centerCards">
+                                <Grid.Row key={post.id}>
+                                    <PostCard key={post.id} post={post} />
+                                </Grid.Row>
                             </div>
                         ))
                     )}
 
-                    <div class="item">
+                    <div className="item">
                         <Button
                             circular
                             size="massive"
                             icon="pencil"
-                            onClick={contentHide}
+                            onClick={() => setDimming(true)}
                             floated="right"
                             style={{ fontSize: '3em' }}
                         />
                     </div>
                 </Grid>
-                <Dimmer active={dimming} onClickOutside={contentShow}>
-                    <PostForm />
+                <Dimmer active={dimming} onClickOutside={contentHide}>
+                    <PostForm
+                        clear={errors}
+                        dimming={contentHide}
+                        clearFunction={initError}
+                    />
                 </Dimmer>
             </Dimmer.Dimmable>
         </div>
     ) : (
-        <div class="HomePage">
-            <div class="centerHeading">
+        <div className="HomePage">
+            <div className="centerHeading">
                 <h1>Login First</h1>
             </div>
         </div>

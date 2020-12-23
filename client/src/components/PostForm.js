@@ -6,12 +6,11 @@ import { useMutation } from '@apollo/client'
 
 import { FETCH_POSTS_QUERY } from '../util/getPosts'
 
-export default function PostForm() {
+export default function PostForm({ dimming, clear, clearFunction }) {
     const [errors, setErrors] = useState({})
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
         body: '',
     })
-
     const CREATE_POST_MUTATION = gql`
         mutation createPost($body: String!) {
             createPost(body: $body) {
@@ -34,7 +33,8 @@ export default function PostForm() {
             }
         }
     `
-    const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
+
+    const [createPost, { loading, error }] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
         update(proxy, result) {
             const data = proxy.readQuery({
@@ -43,9 +43,11 @@ export default function PostForm() {
             data.getPosts = [result.data.createPost, ...data.getPosts]
             proxy.writeQuery({ query: FETCH_POSTS_QUERY, data })
             values.body = ''
+            dimming()
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors)
+            clearFunction()
         },
     })
 
@@ -55,7 +57,7 @@ export default function PostForm() {
 
     return (
         <Form onSubmit={onSubmit} inverted>
-            <div class="FormHeading">
+            <div className="FormHeading">
                 <h1>
                     TALK TO THE <Icon name="globe" size="big" />
                     {'  '}
@@ -67,7 +69,9 @@ export default function PostForm() {
                 placeholder="Write here.."
                 name="body"
                 error={
-                    error ? { content: error.graphQLErrors[0].message } : false
+                    error && clear
+                        ? { content: error.graphQLErrors[0].message }
+                        : false
                 }
                 onChange={onChange}
                 value={values.body}
@@ -75,6 +79,7 @@ export default function PostForm() {
             <Button
                 style={{ marginTop: '2em' }}
                 circular
+                loading={loading ? true : false}
                 type="submit"
                 inverted
                 size="big"

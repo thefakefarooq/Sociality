@@ -6,8 +6,8 @@ import {
     Card,
     Image,
     Button,
-    Icon,
-    Feed,
+    Dimmer,
+    Loader,
     Comment,
     Form,
     TextArea,
@@ -29,9 +29,17 @@ export default function SinglePost(props) {
         },
     })
 
+    function deletePostCallback() {
+        props.history.push('/')
+    }
+
     let postMarkup
     if (!getPost) {
-        postMarkup = <p>Loading post..</p>
+        postMarkup = (
+            <Dimmer active>
+                <Loader size="massive">Loading</Loader>
+            </Dimmer>
+        )
     } else {
         const {
             id,
@@ -44,7 +52,6 @@ export default function SinglePost(props) {
             commentCount,
         } = getPost
 
-        console.log(comments && comments.map((post) => post))
         postMarkup = (
             <Grid padded>
                 <Grid.Row
@@ -66,7 +73,12 @@ export default function SinglePost(props) {
                             <Card.Content>
                                 <Card.Header style={{ color: 'white' }}>
                                     {username}
-                                    <DeleteButton postID={{ id }} />
+                                    {user && user.username === username && (
+                                        <DeleteButton
+                                            postID={id}
+                                            callback={deletePostCallback}
+                                        />
+                                    )}
                                 </Card.Header>
                                 <Card.Meta
                                     style={{

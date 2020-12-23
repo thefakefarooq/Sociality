@@ -52,14 +52,14 @@ export default function Login(props) {
 
     const { general = {} } = errors
     return (
-        <div class="FormBox">
+        <div className="FormBox">
             <Segment inverted vertical>
-                <div class="LoginForm">
+                <div className="LoginForm">
                     <Form inverted onSubmit={onSubmit} noValidate>
-                        <div class="FormHeading">
+                        <div className="FormHeading">
                             <h1>LOGIN</h1>
                         </div>
-                        <div class="LoginFields">
+                        <div className="LoginFields">
                             <Form.Group unstackable>
                                 <Form.Field
                                     width={3}
@@ -93,7 +93,7 @@ export default function Login(props) {
                                 </Form.Field>
                             </Form.Group>
                         </div>
-                        <div class="LoginFields">
+                        <div className="LoginFields">
                             <Form.Group unstackable>
                                 <Form.Field
                                     width={3}

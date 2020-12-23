@@ -58,14 +58,14 @@ export default function Register(props) {
     }
 
     return (
-        <div class="FormBox">
+        <div className="FormBox">
             <Segment
                 inverted
                 style={{ minHeight: 500, padding: '3em 5em' }}
                 vertical
             >
                 <Form inverted onSubmit={onSubmit} noValidate>
-                    <div class="FormHeading">
+                    <div className="FormHeading">
                         <h1>REGISTER</h1>
                     </div>
                     <Segment inverted style={{ padding: 4 }}></Segment>
